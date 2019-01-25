@@ -2,13 +2,13 @@ package com.epam.multithreading.service.validator;
 
 import java.io.File;
 
-public class XsdValidator implements Validator<File>{
+public class XsdValidator implements Validator<File> {
 
-    public XsdValidator(File xsd){
+    public XsdValidator(File xsd) {
 
     }
 
-    public boolean isValid(File file){
+    public boolean isValid(File file) {
         return false;
     }
 }

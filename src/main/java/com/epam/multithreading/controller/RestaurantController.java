@@ -1,15 +1,21 @@
 package com.epam.multithreading.controller;
 
-import com.epam.multithreading.bean.Client;
-
 public class RestaurantController {
+    private static RestaurantController instance;
 
-
-    void ReadFileAndStartProcess(String path){
-
+    public static RestaurantController getInstance() {
+        if (instance == null) {
+            synchronized (RestaurantController.class) {
+                if (instance == null) {
+                    instance = new RestaurantController();
+                }
+            }
+        }
+        return instance;
     }
 
-    void ClientEntry(Client client){
+    public void readFileAndStartProcess(String path) {
+
 
     }
 }

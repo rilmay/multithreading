@@ -1,44 +1,65 @@
 package com.epam.multithreading.bean;
 
-public class Client implements Runnable{
-    private int cashBoxNumber;
-    private boolean privelege;
-    private CashBox cashBox;
+import java.util.concurrent.Semaphore;
 
-    public CashBox getCashBox() {
+public class Client implements Runnable {
+    private String name;
+    private int cashBoxNumber;
+    private boolean preOrder;
+    private Semaphore cashBox;
+
+    public Semaphore getCashBox() {
         return cashBox;
     }
 
-    public void setCashBox(CashBox cashBox) {
+    public void setCashBox(Semaphore cashBox) {
         this.cashBox = cashBox;
     }
 
     public Client() {
     }
 
-    public Client(int cashBoxNumber, boolean privelege) {
+    public Client(String name, int cashBoxNumber, boolean preOrder) {
+        this.name = name;
         this.cashBoxNumber = cashBoxNumber;
-        this.privelege = privelege;
+        this.preOrder = preOrder;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isPreOrder() {
+        return preOrder;
     }
 
     public void setCashBoxNumber(int cashBoxNumber) {
         this.cashBoxNumber = cashBoxNumber;
     }
 
-    public void setPrivelege(boolean privelege) {
-        this.privelege = privelege;
+    public void setPreOrder(boolean preOrder) {
+        this.preOrder = preOrder;
     }
 
     public int getCashBoxNumber() {
         return cashBoxNumber;
     }
 
-    public boolean getPrivelege(){
-        return privelege;
-    }
-
     public void run() {
 
 
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "name='" + name +
+                ", cashBoxNumber=" + cashBoxNumber +
+                ", preOrder=" + preOrder +
+                '}';
     }
 }
