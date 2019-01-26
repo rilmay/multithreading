@@ -44,7 +44,11 @@ public class RestaurantParser implements Parser<Integer> {
             NodeList restaurantElements = document.getElementsByTagName("clients");
             for (int i = 0; i < restaurantElements.getLength(); i++) {
                 Element number = (Element) restaurantElements.item(i);
-                integers.add(Integer.parseInt(number.getAttribute("cash_boxes_amount")));
+                int result = Integer.parseInt(number.getAttribute("cash_boxes_amount"));
+                if (result < 1) {
+                    throw new IllegalArgumentException("Incorrect cash boxes amount");
+                }
+                integers.add(result);
             }
 
         } catch (ParserConfigurationException | SAXException | IOException | IllegalArgumentException e) {

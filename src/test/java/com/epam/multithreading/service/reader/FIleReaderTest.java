@@ -5,7 +5,10 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.File;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class FIleReaderTest {
     private FileReader fileReader;
@@ -14,7 +17,7 @@ public class FIleReaderTest {
 
     @BeforeTest
     public void init() {
-        filePath = "/src/test/resources/test.xml";
+        filePath = "src/test/resources/clients.xml";
         invalidFilePath = "src/tttest";
         fileReader = FileReader.getInstance();
     }
@@ -22,11 +25,7 @@ public class FIleReaderTest {
     @Test
     public void testSingleton() throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Future<Integer> hashCode = executorService.submit(new Callable<Integer>() {
-            public Integer call() {
-                return FileReader.getInstance().hashCode();
-            }
-        });
+        Future<Integer> hashCode = executorService.submit(() -> FileReader.getInstance().hashCode());
         executorService.shutdown();
         Assert.assertEquals(fileReader.hashCode(), hashCode.get().intValue());
     }

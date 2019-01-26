@@ -13,7 +13,7 @@ public class ClientTest {
     @BeforeTest
     public void init() {
         client = new Client("John", 3, false);
-        //client.setCashBox(new Semaphore(1));
+        client.setSemaphore(new Semaphore(1));
     }
 
     @Test

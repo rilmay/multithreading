@@ -15,7 +15,7 @@ public class ClientParserTest {
 
     @BeforeTest
     public void init() {
-        filePath = "src/test/resources/test.xml";
+        filePath = "src/test/resources/clients(1).xml";
         fileReader = FileReader.getInstance();
         clientParser = new ClientParser();
     }
@@ -23,6 +23,6 @@ public class ClientParserTest {
     @Test
     public void testParse() {
         List<Client> clients = clientParser.parse(fileReader.read(filePath));
-        Assert.assertEquals("Client{name = John, cashBoxNumber = 3 , preOrder = false}", clients.get(0).toString());
+        Assert.assertEquals("Client{name=Norina, cashBoxNumber=2, preOrder=true}", clients.get(0).toString());
     }
 }

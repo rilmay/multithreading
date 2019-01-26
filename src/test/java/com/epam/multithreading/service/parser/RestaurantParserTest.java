@@ -14,7 +14,7 @@ public class RestaurantParserTest {
 
     @BeforeTest
     public void init() {
-        filePath = "src/test/resource/test.xml";
+        filePath = "src/test/resources/clients(2).xml";
         fileReader = FileReader.getInstance();
         restaurantParser = new RestaurantParser();
     }
@@ -22,6 +22,6 @@ public class RestaurantParserTest {
     @Test
     public void testParse() {
         List<Integer> clients = restaurantParser.parse(fileReader.read(filePath));
-        Assert.assertEquals(3, clients.get(0).intValue());
+        Assert.assertEquals(10, clients.get(0).intValue());
     }
 }

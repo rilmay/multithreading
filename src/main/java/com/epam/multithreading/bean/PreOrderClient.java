@@ -13,6 +13,14 @@ public class PreOrderClient extends Client {
     private static Logger logger = LogManager.getLogger(PreOrderClient.class);
     private Collection<Semaphore> semaphores;
 
+    public Collection<Semaphore> getSemaphores() {
+        return semaphores;
+    }
+
+    public void setSemaphores(Collection<Semaphore> semaphores) {
+        this.semaphores = semaphores;
+    }
+
     public PreOrderClient(Client client, Collection<Semaphore> semaphores) {
         super.name = client.name;
         super.semaphore = client.semaphore;
@@ -47,7 +55,7 @@ public class PreOrderClient extends Client {
             logger.info(name + " took the order at cash box " + i);
         } catch (InterruptedException e) {
             logger.error(e);
-            throw new MultithreadingException();
+            throw new MultithreadingException(e);
         }
     }
 }

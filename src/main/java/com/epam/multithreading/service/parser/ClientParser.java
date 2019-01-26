@@ -49,7 +49,8 @@ public class ClientParser implements Parser<Client> {
                 for (int j = 0; j < elements.getLength(); j++) {
                     if (elements.item(j).getNodeType() != Node.TEXT_NODE) {
                         Node element = elements.item(j);
-                        switch (element.getNodeName()) {
+                        String field = element.getNodeName();
+                        switch (field) {
                             case "name":
                                 parsed.setName(element.getTextContent());
                                 break;
@@ -66,7 +67,7 @@ public class ClientParser implements Parser<Client> {
             }
 
         } catch (ParserConfigurationException | SAXException | IOException | IllegalArgumentException e) {
-            logger.error("Exception occurs while parsing: " + e.getMessage());
+            logger.error("Exception occurs while parsing: " + e);
             throw new IllegalArgumentException(e);
         }
         return clients;
