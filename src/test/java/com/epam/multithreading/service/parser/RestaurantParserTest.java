@@ -16,7 +16,7 @@ public class RestaurantParserTest {
     public void init() {
         filePath = "src/test/resource/test.xml";
         fileReader = FileReader.getInstance();
-        restaurantParser = new ReustaurantParser();
+        restaurantParser = new RestaurantParser();
     }
 
     @Test

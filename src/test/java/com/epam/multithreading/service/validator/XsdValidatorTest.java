@@ -2,6 +2,7 @@ package com.epam.multithreading.service.validator;
 
 import com.epam.multithreading.service.reader.FileReader;
 import com.epam.multithreading.service.reader.Reader;
+import org.junit.Ignore;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -27,15 +28,16 @@ public class XsdValidatorTest {
     public void testIsValidSuccess() {
         File xml = fileReader.read(validXml);
         File xsd = fileReader.read(xsdPath);
-        xsdValidator = new XsdValidator(xsd);
+        //xsdValidator = new XsdValidator(xsd);
         Assert.assertTrue(xsdValidator.isValid(xml));
     }
+
 
     @Test
     public void testIsValidFail() {
         File xml = fileReader.read(invalidXml);
         File xsd = fileReader.read(xsdPath);
-        xsdValidator = new XsdValidator(xsd);
+        //xsdValidator = new XsdValidator(xsd);
         Assert.assertFalse(xsdValidator.isValid(xml));
     }
 }

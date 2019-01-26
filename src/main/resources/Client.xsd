@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:element name="clients">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="client" type="client" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute name="cash_boxes_amount" type="xsd:positiveInteger"/>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <xsd:complexType name="client">
+        <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element name="cash_box_number" type="xsd:positiveInteger"/>
+            <xsd:element name="pre-order" type="xsd:boolean"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>
