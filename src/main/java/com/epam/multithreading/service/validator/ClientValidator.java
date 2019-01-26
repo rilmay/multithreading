@@ -3,12 +3,11 @@ package com.epam.multithreading.service.validator;
 import com.epam.multithreading.bean.Client;
 
 public class ClientValidator implements Validator<Client> {
-    int amountOfCasBoxes;
+    private int amountOfCasBoxes;
 
     public ClientValidator(int amountOfCasBoxes) {
         this.amountOfCasBoxes = amountOfCasBoxes;
     }
-
 
     @Override
     public boolean isValid(Client client) {
