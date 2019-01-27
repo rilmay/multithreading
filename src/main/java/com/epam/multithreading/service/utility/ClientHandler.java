@@ -16,7 +16,7 @@ public class ClientHandler {
 
     private static Logger logger = LogManager.getLogger(ClientHandler.class);
 
-    private static ClientHandler instance;
+    private static volatile ClientHandler instance;
 
     public static ClientHandler getInstance() {
         if (instance == null) {
@@ -31,9 +31,9 @@ public class ClientHandler {
 
     public List<Client> returnProcessedClientList(List<Client> clients, int cahBoxAmount) {
         ClientValidator clientValidator = new ClientValidator(cahBoxAmount);
-        if (clients.stream().anyMatch(client -> !clientValidator.isValid(client))) {
-            logger.error("Incorrect clients");
-            throw new IllegalArgumentException("Incorrect clients");
+        if (clients.stream().allMatch(clientValidator::isValid)) {
+            logger.error("Incorrect list of clients");
+            throw new IllegalArgumentException("Incorrect list of clients");
         }
 
         Map<Integer, Semaphore> cashBoxMap = new HashMap<>();
@@ -44,7 +44,7 @@ public class ClientHandler {
         List<Client> processedClients = new ArrayList<>(clients.size());
         for (Client i : clients) {
             i.setSemaphore(cashBoxMap.get(i.getCashBoxNumber()));
-            if (i.isPreOrder()) {
+            if (i.hasPreOrder()) {
                 processedClients.add(new PreOrderClient(i, cashBoxMap.values()));
                 continue;
             }

@@ -20,7 +20,7 @@ public class RestaurantParser implements Parser<Integer> {
     private static Logger logger = LogManager.getLogger(ClientParser.class);
 
 
-    private static RestaurantParser instance;
+    private static volatile RestaurantParser instance;
 
     public static RestaurantParser getInstance() {
         if (instance == null) {
@@ -34,7 +34,6 @@ public class RestaurantParser implements Parser<Integer> {
     }
 
     public List<Integer> parse(File file) {
-
         List<Integer> integers = new ArrayList<>();
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -42,17 +41,15 @@ public class RestaurantParser implements Parser<Integer> {
             Document document = builder.parse(file);
 
             NodeList restaurantElements = document.getElementsByTagName("clients");
-            for (int i = 0; i < restaurantElements.getLength(); i++) {
-                Element number = (Element) restaurantElements.item(i);
-                int result = Integer.parseInt(number.getAttribute("cash_boxes_amount"));
-                if (result < 1) {
-                    throw new IllegalArgumentException("Incorrect cash boxes amount");
-                }
-                integers.add(result);
-            }
+            Element number = (Element) restaurantElements.item(0);
+            int result = Integer.parseInt(number.getAttribute("cash_boxes_amount"));
+            integers.add(result);
 
-        } catch (ParserConfigurationException | SAXException | IOException | IllegalArgumentException e) {
-            logger.error("Exception occurs while parsing: " + e.getMessage());
+            if (integers.size() != 1) {
+                throw new IllegalArgumentException("Incorrect parsed file");
+            }
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            logger.error("Exception occurs while parsing: " + e);
             throw new IllegalArgumentException(e);
         }
         return integers;

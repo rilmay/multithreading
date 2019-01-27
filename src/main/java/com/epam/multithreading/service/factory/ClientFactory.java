@@ -15,7 +15,7 @@ import java.io.File;
 public class ClientFactory {
     private static final String XSD_PATH = "src/main/resources/Client.xsd";
 
-    private static ClientFactory instance;
+    private static volatile ClientFactory instance;
 
     public static ClientFactory getInstance() {
         if (instance == null) {

@@ -31,8 +31,9 @@ public class PreOrderClient extends Client {
 
     @Override
     public void run() {
-        if (!isPreOrder()) {
-            throw new IllegalArgumentException();
+        if (!hasPreOrder()) {
+            super.run();
+            return;
         }
         Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
         logger.info(super.name + " has arrived at restaurant with pre order");

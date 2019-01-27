@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class RestaurantController {
-    private static RestaurantController instance;
+    private static volatile RestaurantController instance;
 
     public static RestaurantController getInstance() {
         if (instance == null) {
@@ -35,7 +35,6 @@ public class RestaurantController {
         ClientHandler clientHandler = clientFactory.getClientHandler();
 
         File parsed = fileReader.read(path);
-
         if (!xsdValidator.isValid(parsed)) {
             throw new IllegalArgumentException("Invalid file");
         }

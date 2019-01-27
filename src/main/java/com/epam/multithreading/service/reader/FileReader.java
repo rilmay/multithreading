@@ -4,11 +4,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.util.Optional;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class FileReader implements Reader<File> {
     private static Logger logger = LogManager.getLogger(FileReader.class);
-    private static FileReader instance;
+    private static volatile FileReader instance;
 
     public static FileReader getInstance() {
         if (instance == null) {
@@ -22,11 +23,10 @@ public class FileReader implements Reader<File> {
     }
 
     public File read(String path) {
-        File file = new File(Optional.of(path).orElseThrow(() -> new IllegalArgumentException("Path is null pointer")));
-        if (!file.exists() || !file.isFile()) {
+        if (!Files.exists(Paths.get(path))) {
             logger.error("File does not exist or not a file");
             throw new IllegalArgumentException("File does not exist or not a file");
         }
-        return file;
+        return new File(path);
     }
 }

@@ -19,7 +19,7 @@ import java.util.List;
 public class ClientParser implements Parser<Client> {
     private static Logger logger = LogManager.getLogger(ClientParser.class);
 
-    private static ClientParser instance;
+    private static volatile ClientParser instance;
 
     public static ClientParser getInstance() {
         if (instance == null) {

@@ -23,7 +23,7 @@ public class Client implements Runnable {
     public Client() {
     }
 
-    public boolean isPreOrder() {
+    public boolean hasPreOrder() {
         return preOrder;
     }
 

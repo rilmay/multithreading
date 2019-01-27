@@ -40,7 +40,7 @@ public class RestaurantControllerTest {
     public void testReadFileAnsStartProcessPerformance() {
         Runtime runtime = Runtime.getRuntime();
         long beforeMemory = runtime.totalMemory() - runtime.freeMemory();
-        restaurantController.readFileAndStartProcess(filePath);
+        restaurantController.readFileAndStartProcess(performanceFilePath);
         long memory = (runtime.totalMemory() - runtime.freeMemory()) - beforeMemory;
         System.out.println(memory);
         Assert.assertTrue(Thread.activeCount() > 8 && memory > 200_000);
