@@ -31,7 +31,7 @@ public class ClientHandler {
 
     public List<Client> returnProcessedClientList(List<Client> clients, int cahBoxAmount) {
         ClientValidator clientValidator = new ClientValidator(cahBoxAmount);
-        if (clients.stream().allMatch(clientValidator::isValid)) {
+        if (!clients.stream().allMatch(clientValidator::isValid)) {
             logger.error("Incorrect list of clients");
             throw new IllegalArgumentException("Incorrect list of clients");
         }
