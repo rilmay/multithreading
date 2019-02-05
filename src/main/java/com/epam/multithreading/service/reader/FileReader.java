@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class FileReader implements Reader<File> {
@@ -23,7 +22,7 @@ public class FileReader implements Reader<File> {
     }
 
     public File read(String path) {
-        if (!Files.exists(Paths.get(path))) {
+        if (!Paths.get(path).toFile().exists()) {
             logger.error("File does not exist or not a file");
             throw new IllegalArgumentException("File does not exist or not a file");
         }

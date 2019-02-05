@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
+import java.util.stream.IntStream;
 
 public class ClientHandler {
 
@@ -35,21 +36,12 @@ public class ClientHandler {
             logger.error("Incorrect list of clients");
             throw new IllegalArgumentException("Incorrect list of clients");
         }
-
-        Map<Integer, Semaphore> cashBoxMap = new HashMap<>();
-        for (int i = 1; i <= cahBoxAmount; i++) {
-            cashBoxMap.put(i, new Semaphore(1, true));
-        }
-
+        Map<Integer, Semaphore> cashBoxMap = new HashMap<>(cahBoxAmount);
+        IntStream.range(1, cahBoxAmount + 1).forEach(i -> cashBoxMap.put(i, new Semaphore(1, true)));
         List<Client> processedClients = new ArrayList<>(clients.size());
-        for (Client i : clients) {
-            i.setSemaphore(cashBoxMap.get(i.getCashBoxNumber()));
-            if (i.hasPreOrder()) {
-                processedClients.add(new PreOrderClient(i, cashBoxMap.values()));
-                continue;
-            }
-            processedClients.add(i);
-        }
+        clients.forEach(i -> { i.setSemaphore(cashBoxMap.get(i.getCashBoxNumber()));
+            processedClients.add(i.hasPreOrder()?new PreOrderClient(i, cashBoxMap.values()):i);
+        });
         return processedClients;
     }
 }
